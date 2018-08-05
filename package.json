@@ -20,9 +20,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p .",
-    "test": "npm run build & node dist/test.js",
-    "semantic-release": "semantic-release"
+    "build": "tsc -p ."
   },
   "devDependencies": {
     "@types/mocha": "^5.2.5",
@@ -31,16 +29,11 @@
     "ts-node": "^7.0.0",
     "typings": "^2.1.1",
     "tslint": "^5.11.0",
-    "semantic-release": "^15.9.3",
-    "@semantic-release/changelog": "^3.0.0",
-    "@semantic-release/git": "^7.0.1",
     "typescript": "^3.0.1"
   },
   "dependencies": {
     "package-json": "^5.0.0",
     "request": "^2.87.0",
-    "request-promise": "^4.2.2",
-    "string-format": "^2.0.0",
-    "xml-js": "^1.6.7"
+    "request-promise": "^4.2.2"
   }
 }
