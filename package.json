@@ -1,0 +1,46 @@
+{
+  "author": "linterhub <hi@linterhub.com>",
+  "name": "@linterhub/registry",
+  "version": "0.0.0-development",
+  "description": "Registry provides an interface for obtaining information about `packages` from various `package managers`",
+  "license": "MIT",
+  "keywords": [
+    "linterhub"
+  ],
+  "repository": "https://github.com/linterhub/registry",
+  "bugs": "https://github.com/linterhub/registry/issues",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest",
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "npm run build & node dist/test.js",
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.5.5",
+    "@types/package-json": "^4.0.1",
+    "ts-node": "^7.0.0",
+    "typings": "^2.1.1",
+    "tslint": "^5.11.0",
+    "semantic-release": "^15.9.3",
+    "@semantic-release/changelog": "^3.0.0",
+    "@semantic-release/git": "^7.0.1",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "package-json": "^5.0.0",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "string-format": "^2.0.0",
+    "xml-js": "^1.6.7"
+  }
+}
