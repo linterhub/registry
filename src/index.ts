@@ -1,7 +1,11 @@
 import { Manager } from './interface/manager';
 
 export enum managerType {
-    npm = "npm"
+    npm = "npm",
+    pip = "pip",
+    gem = "gem",
+    composer = "composer"
+
 }
 
 
