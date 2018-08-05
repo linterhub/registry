@@ -2,7 +2,6 @@ import { Manager } from '../interface/manager';
 import { Dependency } from '../interface/deps';
 import { Meta } from '../interface/meta';
 import packageJson from 'package-json';
-const schema = require('@linterhub/schema');
 
 export default class extends Manager {
 

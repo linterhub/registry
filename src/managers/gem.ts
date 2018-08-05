@@ -1,7 +1,6 @@
 import { Manager } from '../interface/manager';
 import { Dependency } from '../interface/deps';
 import { Meta } from '../interface/meta';
-const schema = require('@linterhub/schema');
 const requestPromise = require('request-promise');
 
 export default class extends Manager {
