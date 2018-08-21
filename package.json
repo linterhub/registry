@@ -23,7 +23,8 @@
       "mocha": "./node_modules/mocha/bin/mocha",
       "build": "tsc -p .",
       "lint": "tslint -c tslint.json  --project . -t codeFrame",
-      "test": "mocha -r ts-node/register test/test.**.ts"
+      "test": "mocha -r ts-node/register test/test.**.ts",
+      "semantic-release": "semantic-release"
     },
     "devDependencies": {
       "@types/chai": "^4.1.4",
@@ -31,6 +32,9 @@
       "@types/node": "^10.5.5",
       "@types/package-json": "^4.0.1",
       "@types/request-promise": "^4.1.42",
+      "@semantic-release/changelog": "^3.0.0",
+      "@semantic-release/git": "^7.0.1",
+      "semantic-release": "^15.9.6",
       "chai": "^4.1.2",
       "mocha": "^5.2.0",
       "ts-node": "^7.0.0",

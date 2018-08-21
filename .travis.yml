@@ -1,7 +1,19 @@
 language: node_js
 node_js: "8"
 install: npm install
-script: 
-  - npm run build
-  - npm run lint 
-  - npm run test
+cache:
+  directories:
+  - dist
+
+jobs:
+  include:
+    - stage: build
+      node_js: "8"
+      script: 
+        - npm run lint 
+        - npm run test
+        - npm run build
+    - stage: release
+      node_js: "8"
+      if: branch = master AND type = push
+      script: npm run semantic-release

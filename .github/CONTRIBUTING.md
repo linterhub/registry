@@ -138,8 +138,8 @@ Go to your fork in GitHub and then follow the [GitHub documentation][github-help
 - A pull request must contain a description explaining what you did and how the effects can be seen.
 
 [maintainers]: https://github.com/orgs/linterhub/teams/maintainers
-[github-url]: https://github.com/linterhub/schema
-[github-url-issue]: https://github.com/linterhub/schema/issues/new
+[github-url]: https://github.com/linterhub/registry
+[github-url-issue]: https://github.com/linterhub/registry/issues/new
 [github-help-fork]: https://help.github.com/articles/fork-a-repo/#fork-an-example-repository
 [github-help-pull-request]: https://help.github.com/articles/creating-a-pull-request
-[github-url-commit-message]: https://github.com/linterhub/schema/blob/develop/docs/git/commit_message.md
+[github-url-commit-message]: https://github.com/linterhub/registry/blob/develop/docs/git/commit_message.md

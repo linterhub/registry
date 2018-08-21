@@ -8,7 +8,7 @@ Each commit message consists of a **header**, a [**body**](#body) and a [**foote
 The header has a special format that includes a [type](#type) and a [subject](#subject):
 
 ```text
-<type>:<subject> (<number of issue>)
+<type>:<subject>
 <BLANK LINE>
 <body>
 <BLANK LINE>
@@ -51,7 +51,7 @@ The footer should contain a [closing reference to an issue][github-help-close-is
 ## Example
 
 ```text
-Test: Add missing tests for a linter (#456)
+Test: Add missing tests for a linter
 
 Adding missing tests for the linter:
 - with full data

@@ -24,8 +24,8 @@ unified API for work with of various API.
 
 Requirements:
 
-- [Node.js][node-js] 7.4+
-- [npm][npm] 4+
+- [Node.js][node-js-url] 7.4+
+- [npm][npm-url] 4+
 
 ```bash
 npm install @linterhub/registry
@@ -44,8 +44,10 @@ Get meta-information of `packageName` from `npm` and output it to console:
 
 ```javascript
 const registry = require('@linterhub/registry');
-const manager = registry('npm');
-console.log(manager.getMeta('package'));
+const manager = registry.getManager('npm');
+manager.getMeta('packageName').then((data) => {
+    console.log(data);
+});
 ```
 
 Supported package managers:
@@ -62,32 +64,38 @@ Supported package managers:
 Get meta-information of package
 
 Options:
-`name`: string - package name by search
-`version`: string - package version [`latest` by default]
 
-Return: `Promise`
-Promise: package meta-information, which include: `name`, `url`, `license` and e.t.c
+- `name`: string - package name by search
+- `version`: string - package version [`latest` by default]
+
+Return:
+
+- `Promise` - package meta-information, which include: `name`, `url`, `license` and e.t.c
 
 #### getDeps(name, [version])
 
 Get dependencies for a package
 
 Options:
-`name`: string -  package name by search
-`version`: string - package version [`latest` by default]
 
-Return: `Promise`
-Promise: objects array, where the object is one dependency.
+- `name`: string -  package name by search
+- `version`: string - package version [`latest` by default]
+
+Return:
+
+- `Promise` - objects array, where the object is one dependency.
 
 #### getVersions(name)
 
 Get all versions by package name
 
 Options:
-`name`: string - package name by search
 
-Returns: `Promise`
-Promise: versions array
+- `name`: string - package name by search
+
+Returns:
+
+- `Promise`- versions array
 
 ## Contribute
 
@@ -99,7 +107,7 @@ Please check our [contributing guidelines][repo-contributing].
 
 [MIT][repo-license]
 
-[repo-doc]: https://github.com/linterhub/registry/blob/master/doc
+[repo-doc]: https://github.com/linterhub/registry/blob/master/docs
 [repo-url]: https://github.com/linterhub/registry
 [repo-npm]: https://www.npmjs.com/package/@linterhub/registry
 [repo-license]: https://github.com/linterhub/registry/blob/master/LICENSE.md
