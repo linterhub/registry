@@ -1,7 +1,7 @@
-import { Manager } from '../interface/manager';
-import { Dependency } from '../interface/deps';
-import { Meta } from '../interface/meta';
-const requestPromise = require('request-promise');
+import Dependency from '../interface/deps';
+import Manager from '../interface/manager';
+import Request from 'request-promise';
+import Meta from '../interface/meta';
 
 export default class extends Manager {
 
@@ -12,23 +12,22 @@ export default class extends Manager {
             name += `/${version}`;
         }
         const packageUrl = `https://${this.host}/${name}/json`;
-        return JSON.parse(await requestPromise(packageUrl));
+        return JSON.parse(await Request(packageUrl));
     }
 
     constructor(name: string, host: string) {
         super(name);
-        this.host = host;
+        this.host = host ? host : this.host;
     }
 
     async getMeta(name: string, version?: string): Promise<Meta> {
         const json = await this.requestPIP(name, version);
         return {
-            package: `${json.name}:${json.version}`,
-            name: json.name,
+            name: json.info.name,
             description: json.info.summary,
             url: json.info.home_page,
-            license: json.info.license,
-            version: json.version,
+            license: json.info.license ? json.info.license : null,
+            version: json.info.version,
         };
     }
 
@@ -56,7 +55,6 @@ export default class extends Manager {
                 }
             }
         }
-
         return dependencies;
     }
 

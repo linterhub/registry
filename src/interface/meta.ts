@@ -1,7 +1,5 @@
-
 // Describes meta information of package
-export interface Meta {
-    package: string;
+export default interface Meta {
     name: string;
     description?: string;
     url?: string;

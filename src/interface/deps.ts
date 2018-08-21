@@ -1,6 +1,5 @@
-
 // Describes single dependency in package manager
-export interface Dependency {
+export default interface Dependency {
     manager: string;
     package: string;
     version?: string;

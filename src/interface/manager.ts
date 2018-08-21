@@ -1,10 +1,10 @@
-import { Dependency } from './deps';
-import { Meta } from './meta';
+import Dependency from './deps';
+import Meta from './meta';
 
 /**
  * This abstract class describes methods of package manager object
  */
-export abstract class Manager {
+export default abstract class Manager {
 
     protected name: string;
 
