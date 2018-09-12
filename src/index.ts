@@ -1,20 +1,26 @@
-import Manager from './interface/manager';
-
-// Supported package managers
-export enum managerType {
-    npm = "npm",
-    pip = "pip",
-    gem = "gem",
-    composer = "composer"
-}
+import { Template, Arguments, Source } from './model/registry';
+import Request from 'request-promise';
+import format from 'string-format';
 
 /**
- * Get all methods of package manager
- * @param {managerType} type - name of package manager  
- * @return {Manager} - package manager class
+ * This class describes abstract registry
  */
-export function getManager(type: managerType): Manager {
-    const managerName: string = managerType[type];
-    const managerClass = require(`./managers/${managerName}`);
-    return new managerClass.default(managerName);
+export default class Registry {
+
+    protected context: Source;
+    protected api: Template;
+
+    constructor(context: Source) {
+        this.context = context;
+        this.api = require(`./registry/${context.registry}`);
+    }
+
+    protected async request(urlPrototype: string, args: Source & Arguments): Promise<string> {
+        return JSON.parse(await Request(format(urlPrototype, args)));
+    }
+
+    public async get<T>(method: string, args: Source & Arguments) : Promise<T & Source> {
+        const req = this.api.requests[method];
+        return req.converter(await this.request(req.urlProrotype, args));
+    }
 }
