@@ -1,7 +1,3 @@
-import Dependency from './deps';
-import Meta from './meta';
-import format from 'string-format';
-
 export type Source = {
     registry: string;
     repository: string;
@@ -14,7 +10,7 @@ export type Arguments = {
 
 export type Definition = {
     urlProrotype: string;
-    converter: <T>(json: string) => T; 
+    converter: (data: string, args: Arguments & Source) => any; 
 };
 
 export type Template = {
@@ -22,3 +18,9 @@ export type Template = {
     repositories: string[];
     requests: { [key:string]:Definition };
 };
+
+export enum Request {
+    Meta = "meta",
+    Dependencies = "deps",
+    Versions = "versions"
+}
