@@ -1,6 +1,6 @@
 export type Source = {
     registry: string;
-    repository: string;
+    repository?: string;
 };
 
 export type Arguments = {
@@ -10,7 +10,7 @@ export type Arguments = {
 
 export type Definition = {
     urlProrotype: string;
-    converter: (data: string, args: Arguments & Source) => any; 
+    converter: (data: string | any, args: Arguments & Source) => any; 
 };
 
 export type Template = {

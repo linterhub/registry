@@ -14,7 +14,7 @@ function getVersionData(json: any, version?: string): any {
 const urlTemplate: string = 'https://{repository}/packages/{name}.json';
 
 const api: Template = {
-    name: 'npm',
+    name: 'composer',
     repositories: [
         'packagist.org'
     ],
@@ -34,26 +34,27 @@ const api: Template = {
         },
         "deps": {
             urlProrotype: urlTemplate,
-            converter: (json: string, args: Arguments & Source) => {
-                const data = getVersionData(JSON.parse(json), args.version);
+            converter: (json: any, args: Arguments & Source) => {
+                const data = getVersionData(json, args.version);
 
                 const dependencies: Dependency[] =
                     Object.keys(data.require)
-                        .map(x => {
-                            return {
-                                manager: args.registry,
-                                package: x,
-                                version: data.require[x]
-                            };
-                        });
+                        .map(x => ({
+                            source: {
+                                registry: args.registry,
+                                repository: args.repository
+                            },
+                            package: x,
+                            version: data.require[x]
+                        }));
 
                 return dependencies;
             }
         },
         "versions": {
             urlProrotype: urlTemplate,
-            converter: (json: string) => {
-                return Object.keys(JSON.parse(json).package.versions)
+            converter: (json: any) => {
+                return Object.keys(json.package.versions)
                     .filter(x => x.includes('.'));
             }
         },

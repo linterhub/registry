@@ -11,7 +11,7 @@ export type Meta = {
 
 // Describes single dependency in package manager
 export type Dependency = {
-    manager: string;
+    source: Source;
     package: string;
     version?: string;
     target?: boolean;

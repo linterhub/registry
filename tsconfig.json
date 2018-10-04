@@ -7,8 +7,12 @@
         "strict": true,
         "typeRoots": [
             "node_modules/@types",
-            "typings"
+            "./src/typings"
         ],
+        "baseUrl": ".",
+        "paths": {
+            "*": ["src/typings/*"]
+        },
         "types": [
             "node"
         ],
@@ -16,5 +20,8 @@
     },
     "include": [
         "src/**/*"
+    ],
+    "exclude": [
+        "src/typings"
     ]
 }

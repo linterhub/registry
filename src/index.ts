@@ -1,12 +1,15 @@
-import { Template, Arguments, Source } from './model/registry';
+import { Template, Arguments, Source, Request as LRequest} from './model/registry';
 import Request from 'request-promise';
 import format from 'string-format';
+import isjson = require('is-json');
 import { Data } from './model/data';
+
+export { Source, Template, LRequest as Request, Arguments };
 
 /**
  * This class describes abstract registry
  */
-export default class Registry {
+export class Registry {
 
     protected context: Source;
     protected api: Template;
@@ -20,12 +23,14 @@ export default class Registry {
         return JSON.parse(await Request(format(urlPrototype, args)));
     }
 
-    public async get(method: string, args: Source & Arguments) : Promise<Data> {
+    public async get(method: string, args: Arguments) : Promise<Data> {
         const req = this.api.requests[method];
+        const params = { ...args, ...this.context };
+        const result = await this.request(req.urlProrotype, params);
         return {
-            data: req.converter(await this.request(req.urlProrotype, args), args),
-            registry: args.registry,
-            repository: args.repository
+            data: req.converter(isjson(result) ? JSON.parse(result) : result, params),
+            registry: this.context.registry,
+            repository: this.context.repository
         };
     }
 }
