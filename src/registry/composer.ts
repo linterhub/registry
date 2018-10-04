@@ -11,16 +11,14 @@ function getVersionData(json: any, version?: string): any {
                 .shift();
 }
 
-const urlTemplate: string = 'https://{repository}/packages/{name}.json';
-
 const api: Template = {
     name: 'composer',
     repositories: [
         'packagist.org'
     ],
+    urlPrototype: 'https://{repository}/packages/{name}.json',
     requests: {
         "meta": {
-            urlProrotype: urlTemplate,
             converter: (json: string, args: Arguments & Source) => {
                 const data = getVersionData(json, args.version);
                 return {
@@ -33,7 +31,6 @@ const api: Template = {
             }
         },
         "deps": {
-            urlProrotype: urlTemplate,
             converter: (json: any, args: Arguments & Source) => {
                 const data = getVersionData(json, args.version);
 
@@ -52,7 +49,6 @@ const api: Template = {
             }
         },
         "versions": {
-            urlProrotype: urlTemplate,
             converter: (json: any) => {
                 return Object.keys(json.package.versions)
                     .filter(x => x.includes('.'));

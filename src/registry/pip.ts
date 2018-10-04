@@ -6,9 +6,9 @@ const api: Template = {
     repositories: [
         'pypi.org/pypi'
     ],
+    urlPrototype: 'https://{repository}/{name}/{version}/json',
     requests: {
         "meta": {
-            urlProrotype: 'https://{repository}/{name}/{version}/json',
             converter: (json: any, args: Arguments & Source) => {
                 return {
                     name: json.info.name,
@@ -20,7 +20,6 @@ const api: Template = {
             }
         },
         "deps": {
-            urlProrotype: 'https://{repository}/{name}/{version}/json',
             converter: (json: any, args: Arguments & Source) => {
                 const dependencies: Dependency[] = [];
                 if (json.info.requires_dist) {
@@ -53,7 +52,7 @@ const api: Template = {
             }
         },
         "versions": {
-            urlProrotype: 'https://{repository}/{name}/json',
+            urlPrototype: 'https://{repository}/{name}/json',
             converter: (json: any) => {
                 return Object
                     .keys(json.releases)

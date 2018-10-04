@@ -29,7 +29,8 @@ export class Registry {
     public async get(method: string, args: Arguments) : Promise<Data> {
         const req = this.api.requests[method];
         const params = { ...args, ...this.context };
-        const result = await this.request(req.urlProrotype, params);
+        const result = await this.request(
+            req.urlPrototype ? req.urlPrototype : this.api.urlPrototype, params);
         return {
             data: req.converter(isjson(result) ? JSON.parse(result) : result, params),
             registry: this.context.registry,
