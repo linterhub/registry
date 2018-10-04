@@ -22,11 +22,11 @@ const api: Template = {
         "meta": {
             urlProrotype: urlTemplate,
             converter: (json: string, args: Arguments & Source) => {
-                const data = getVersionData(JSON.parse(json), args.version);
+                const data = getVersionData(json, args.version);
                 return {
                     name: data.name,
                     description: data.description,
-                    url: data.homepage,
+                    url: data.homepage ? data.homepage : data.repository,
                     license: data.license ? data.license[0] : null,
                     version: data.version,
                 }
@@ -61,4 +61,4 @@ const api: Template = {
     }
 };
 
-export default api;
+export = api;

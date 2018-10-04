@@ -17,6 +17,9 @@ export class Registry {
     constructor(context: Source, api?: Template) {
         this.context = context;
         this.api = api || require(`./registry/${context.registry}`);
+        if (!this.context.repository) {
+            this.context.repository = this.api.repositories[0];
+        }
     }
 
     protected async request(urlPrototype: string, args: Source & Arguments): Promise<string> {

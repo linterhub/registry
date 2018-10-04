@@ -63,4 +63,4 @@ const api: Template = {
     }
 };
 
-export default api;
+export = api;
