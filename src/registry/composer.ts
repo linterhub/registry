@@ -27,7 +27,7 @@ const api: Template = {
                     url: data.homepage ? data.homepage : data.repository,
                     license: data.license ? data.license[0] : null,
                     version: data.version,
-                }
+                };
             }
         },
         "deps": {

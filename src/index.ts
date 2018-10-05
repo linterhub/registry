@@ -26,16 +26,16 @@ export class Registry extends Cacheable {
 
     protected async request(urlPrototype: string, args: Source & Arguments): Promise<CachedObject> {
         const url = format(urlPrototype, args);
-        let result = this.requestCache(url);
+        const result = this.requestCache(url);
         return result || await this.cache(await Request(url), url);
     }
 
-    public emptyCache(key?: string) : Registry {
+    emptyCache(key?: string) : Registry {
         this.emptyCacheValue(key);
         return this;
     }
 
-    public async get(method: LRequest, args: Arguments) : Promise<Data> {
+    async get(method: LRequest, args: Arguments) : Promise<Data> {
         const req = this.api.requests[method];
         const params = { ...args, ...this.context };
         const result = await this.request(

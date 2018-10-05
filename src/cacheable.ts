@@ -18,7 +18,7 @@ export abstract class Cacheable {
         }
         this.cached[key] = {
             timestamp: Date.now(),
-            value: value
+            value
         };
     }
 

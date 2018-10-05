@@ -14,8 +14,7 @@ export type Dependency = {
     source: Source;
     package: string;
     version?: string;
-    target?: boolean;
-}
+};
 
 export type Data = {
     data: any;
