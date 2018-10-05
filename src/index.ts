@@ -1,4 +1,4 @@
-import { Template, Arguments, Source, Request as LRequest} from './model/registry';
+import { Template, Arguments, Source, Request as LRequest, registryList } from './model/registry';
 import { Cacheable } from './cacheable';
 import Request from 'request-promise';
 import format from 'string-format';
@@ -18,7 +18,7 @@ export class Registry extends Cacheable {
     constructor(context: Source, api?: Template) {
         super();
         this.context = context;
-        this.api = api || require(`./registry/${context.registry}`);
+        this.api = api || registryList[context.registry];
         if (!this.context.repository) {
             this.context.repository = this.api.repositories[0];
         }
@@ -34,7 +34,7 @@ export class Registry extends Cacheable {
         const req = this.api.requests[method];
         const params = { ...args, ...this.context };
         const result = await this.request(
-            req.urlPrototype ? req.urlPrototype : this.api.urlPrototype, params);
+            req.urlPrototype || this.api.urlPrototype, params);
         return {
             data: req.converter(isjson(result) ? JSON.parse(result) : result, params),
             registry: this.context.registry,
