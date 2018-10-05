@@ -1,4 +1,5 @@
 import { Template, Arguments, Source, Request as LRequest} from './model/registry';
+import { Cacheable } from './cacheable';
 import Request from 'request-promise';
 import format from 'string-format';
 import isjson = require('is-json');
@@ -9,12 +10,13 @@ export { Source, Template, LRequest as Request, Arguments };
 /**
  * This class describes abstract registry
  */
-export class Registry {
+export class Registry extends Cacheable {
 
     protected context: Source;
     protected api: Template;
     
     constructor(context: Source, api?: Template) {
+        super();
         this.context = context;
         this.api = api || require(`./registry/${context.registry}`);
         if (!this.context.repository) {
@@ -22,8 +24,10 @@ export class Registry {
         }
     }
 
-    protected async request(urlPrototype: string, args: Source & Arguments): Promise<string> {
-        return JSON.parse(await Request(format(urlPrototype, args)));
+    protected async request(urlPrototype: string, args: Source & Arguments): Promise<any> {
+        const url = format(urlPrototype, args);
+        const req = Request(url);
+        return await req.then(x => this.cache(x, url));
     }
 
     public async get(method: string, args: Arguments) : Promise<Data> {
