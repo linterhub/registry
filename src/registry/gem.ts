@@ -6,7 +6,7 @@ const api: Template = {
     repositories: [
         'rubygems.org'
     ],
-    urlPrototype: 'https://{repository}/api/v1/gems/{name}.json`',
+    urlPrototype: 'https://{repository}/api/v1/gems/{name}.json',
     requests: {
         "meta": {
             converter: (json: any, args: Arguments & Source) => {
