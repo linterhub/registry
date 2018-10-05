@@ -1,4 +1,4 @@
-import { Source } from './registry';
+import { Source, Arguments, Request } from './registry';
 
 // Describes meta information of package
 export type Meta = {
@@ -19,4 +19,8 @@ export type Dependency = {
 
 export type Data = {
     data: any;
-} & Source;
+    request: Arguments & Source & { 
+        type: Request,
+        timestamp: number
+    };
+};

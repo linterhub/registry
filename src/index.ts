@@ -1,5 +1,5 @@
 import { Template, Arguments, Source, Request as LRequest, registryList } from './model/registry';
-import { Cacheable } from './cacheable';
+import { Cacheable, CachedObject } from './cacheable';
 import Request from 'request-promise';
 import format from 'string-format';
 import isjson = require('is-json');
@@ -24,21 +24,30 @@ export class Registry extends Cacheable {
         }
     }
 
-    protected async request(urlPrototype: string, args: Source & Arguments): Promise<any> {
+    protected async request(urlPrototype: string, args: Source & Arguments): Promise<CachedObject> {
         const url = format(urlPrototype, args);
-        const req = Request(url);
-        return await req.then(x => this.cache(x, url));
+        let result = this.requestCache(url);
+        return result || await this.cache(await Request(url), url);
     }
 
-    public async get(method: string, args: Arguments) : Promise<Data> {
+    public emptyCache(key?: string) : Registry {
+        this.emptyCacheValue(key);
+        return this;
+    }
+
+    public async get(method: LRequest, args: Arguments) : Promise<Data> {
         const req = this.api.requests[method];
         const params = { ...args, ...this.context };
         const result = await this.request(
             req.urlPrototype || this.api.urlPrototype, params);
         return {
-            data: req.converter(isjson(result) ? JSON.parse(result) : result, params),
-            registry: this.context.registry,
-            repository: this.context.repository
+            data: req.converter(isjson(result.value) ? JSON.parse(result.value) : result.value, params),
+            request: { ...args, ...{
+                registry: this.context.registry,
+                repository: this.context.repository,
+                type: method,
+                timestamp: result.timestamp
+            }}
         };
     }
 }
