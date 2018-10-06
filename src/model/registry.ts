@@ -27,7 +27,8 @@ const registryFolder: string = path.join(__dirname, '../registry');
 
 export const registryList: { [key:string]:Template } = fs
     .readdirSync(registryFolder)
-    .filter(x => path.extname(x) === '.js')
+    .map(x => path.basename(x))
+    .filter((item, i, ar) => ar.indexOf(item) === i)
     .map(x => require(path.join(registryFolder, x)))
     .reduce((map, obj) => {
         map[obj.name] = obj;

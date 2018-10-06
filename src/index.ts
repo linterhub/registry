@@ -1,11 +1,11 @@
 import { Template, Arguments, Source, Request as LRequest, registryList } from './model/registry';
 import { Cacheable, CachedObject } from './cacheable';
 import Request from 'request-promise';
-import format from 'string-format';
+import mustache from 'mustache';
 import isjson = require('is-json');
-import { Data } from './model/data';
+import { Data, Meta, Dependency } from './model/data';
 
-export { Source, Template, LRequest as Request, Arguments };
+export { Source, Template, LRequest as Request, Arguments, registryList, Meta, Dependency, Data };
 
 /**
  * This class describes abstract registry
@@ -27,13 +27,11 @@ export class Registry extends Cacheable {
     async get(method: LRequest, args: Arguments, updateCache: boolean = false) : Promise<Data> {
         const req = this.api.requests[method];
         const params = { ...args, ...this.context };
-        const url = format(req.urlPrototype || this.api.urlPrototype, params);
-        let result = {} as Data;
+        const url = mustache.render(req.urlPrototype || this.api.urlPrototype, params);
+        const result = {} as Data;
         let response = {} as CachedObject;
 
-        result.request = { ...args, ...{
-            registry: this.context.registry,
-            repository: this.context.repository,
+        result.request = { ...params, ...{
             type: method,
             timestamp: 0
         }};
@@ -41,9 +39,9 @@ export class Registry extends Cacheable {
         if (!this.isSet(url) || updateCache) {
             this.cleanCache(url);
             try {
-                response = this.cache(url, await Request(url).promise())
+                response = this.cache(url, await Request(url).promise());
             } catch (error) {
-                result.error = (<Error>error).message;
+                result.error = (error as Error).message;
                 result.request.timestamp = Date.now();
                 return result;
             }

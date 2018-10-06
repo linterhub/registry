@@ -6,7 +6,7 @@ export = {
     repositories: [
         'pypi.org/pypi'
     ],
-    urlPrototype: 'https://{repository}/{name}/{version}/json',
+    urlPrototype: 'https://{{{repository}}}/{{{name}}}{{#version}}/{{{version}}}{{/version}}/json',
     requests: {
         "meta": {
             converter: (json: any, args: Arguments & Source) => {
@@ -52,7 +52,7 @@ export = {
             }
         },
         "versions": {
-            urlPrototype: 'https://{repository}/{name}/json',
+            urlPrototype: 'https://{{{repository}}}/{{{name}}}/json',
             converter: (json: any) => {
                 return Object
                     .keys(json.releases)

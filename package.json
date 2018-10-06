@@ -30,9 +30,8 @@
     "@types/chai": "^4.1.4",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.5.5",
-    "@types/string-format": "^2.0.0",
-    "@types/package-json": "^4.0.1",
     "@types/request-promise": "^4.1.42",
+    "@types/mustache": "^0.8.31",
     "@semantic-release/changelog": "^3.0.0",
     "@semantic-release/git": "^7.0.1",
     "semantic-release": "^15.9.6",
@@ -45,9 +44,8 @@
   },
   "dependencies": {
     "is-json": "^2.0.1",
-    "package-json": "^5.0.0",
+    "mustache": "^3.0.0",
     "request": "^2.87.0",
-    "request-promise": "^4.2.2",
-    "string-format": "^2.0.0"
+    "request-promise": "^4.2.2"
   }
 }

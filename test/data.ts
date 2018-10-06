@@ -1,13 +1,15 @@
-import Library from './interface/library';
-import { managerType } from './../src/index';
+import { Linter } from './interface/library';
 
-const data : Library[] = [
+const data : Linter[] = [
     {
         name: "eslint",
         version: "5.2.0",
-        manager: managerType.npm,
+        registry: "npm",
         dependency: {
-            manager: managerType.npm, 
+            source: {
+                registry: "npm",
+                repository: "registry.npmjs.org"
+            },
             package: 'glob', 
             version: '^7.1.2'
         },
@@ -15,18 +17,24 @@ const data : Library[] = [
     {
         name: 'flake8',
         version: '3.4.0',
-        manager: managerType.pip,
+        registry: "pip",
         dependency: {
-            manager: managerType.pip, 
+            source: {
+                registry: "pip",
+                repository: "pypi.org/pypi"
+            },
             package: "pyflakes"
         },
     },
     {
         name: 'squizlabs/php_codesniffer',
         version: '3.3.0',
-        manager: managerType.composer,
+        registry: "composer",
         dependency: { 
-            manager: managerType.composer, 
+            source: {
+                registry: "composer",
+                repository: "packagist.org"
+            },
             package: "php", 
             version: '>=5.4.0' 
         }
@@ -34,9 +42,12 @@ const data : Library[] = [
     {
         name: 'flay',
         version: '2.2.0',
-        manager: managerType.gem,
+        registry: "gem",
         dependency:  { 
-            manager: managerType.gem, 
+            source: {
+                registry: "gem",
+                repository: "rubygems.org"
+            },
             package: "ruby_parser", 
             version: '~> 3.0' 
         }

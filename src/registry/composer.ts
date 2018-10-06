@@ -16,7 +16,7 @@ export = {
     repositories: [
         'packagist.org'
     ],
-    urlPrototype: 'https://{repository}/packages/{name}.json',
+    urlPrototype: 'https://{{{repository}}}/packages/{{{name}}}.json',
     requests: {
         "meta": {
             converter: (json: string, args: Arguments & Source) => {

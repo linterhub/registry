@@ -6,7 +6,8 @@ export = {
     repositories: [
         'rubygems.org'
     ],
-    urlPrototype: 'https://{repository}/api/v1/gems/{name}.json',
+    urlPrototype: 
+        'https://{{{repository}}}/api/{{#version}}v2/rubygems/{{{name}}}/versions/{{{version}}}{{/version}}{{^version}}v1/gems/{{{name}}}{{/version}}.json',
     requests: {
         "meta": {
             converter: (json: any, args: Arguments & Source) => {
@@ -40,8 +41,8 @@ export = {
             }
         },
         "versions": {
-            urlPrototype: 'https://{repository}/api/v1/versions/{name}.json`',
-            converter: (json: any) => json
+            urlPrototype: 'https://{{{repository}}}/api/v1/versions/{{{name}}}.json',
+            converter: (json: any[]) => json.map(x => x.number)
         },
     }
 } as Template;

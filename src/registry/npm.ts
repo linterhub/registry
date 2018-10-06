@@ -11,7 +11,7 @@ export = {
     repositories: [
         'registry.npmjs.org'
     ],
-    urlPrototype: 'https://{repository}/{name}',
+    urlPrototype: 'https://{{{repository}}}/{{{name}}}',
     requests: {
         "meta": {
             converter: (json: any, args: Arguments & Source) => {
