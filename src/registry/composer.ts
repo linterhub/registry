@@ -11,7 +11,7 @@ function getVersionData(json: any, version?: string): any {
                 .shift();
 }
 
-const api: Template = {
+export = {
     name: 'composer',
     repositories: [
         'packagist.org'
@@ -55,6 +55,4 @@ const api: Template = {
             }
         },
     }
-};
-
-export = api;
+} as Template;

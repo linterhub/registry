@@ -1,7 +1,7 @@
 import { Dependency } from '../model/data';
 import { Template, Arguments, Source } from '../model/registry';
 
-const api: Template = {
+export = {
     name: 'pip',
     repositories: [
         'pypi.org/pypi'
@@ -60,6 +60,4 @@ const api: Template = {
             }
         },
     }
-};
-
-export = api;
+} as Template;

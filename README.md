@@ -56,6 +56,7 @@ Supported package managers:
 - [`gem`][gem-url]
 - [`pip`][pip-url]
 - [`composer`][composer-url]
+- [`nuget`][nuget-url]
 
 ### API
 
@@ -114,12 +115,13 @@ Please check our [contributing guidelines][repo-contributing].
 [repo-release-url]: https://github.com/linterhub/registry/releases
 [repo-contributing]: https://github.com/linterhub/registry/blob/master/.github/CONTRIBUTING.md
 [shield-npm]: https://img.shields.io/npm/v/@linterhub/registry.svg
-[shield-github]: https://img.shields.io/github/release/registry/schema.svg?label=github
-[shield-travis]: https://img.shields.io/travis/linterhub/registry/master.svg
+[shield-github]: https://img.shields.io/github/release/linterhub/registry.svg?label=github
+[shield-travis]: https://travis-ci.com/linterhub/registry.svg?branch=master
 [shield-semantic]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [npm-url]: https://www.npmjs.com
 [pip-url]: https://pypi.org/project/pip/
 [gem-url]: https://rubygems.org
+[nuget-url]: https://www.nuget.org
 [travis-url]: https://travis-ci.org/registry/schema/branches
 [node-js-url]: https://nodejs.org
 [catalog-url]: https://github.com/linterhub/catalog

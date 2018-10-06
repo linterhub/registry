@@ -6,7 +6,7 @@ function getVersionData(json : any, version?: string) : any {
     return version ? json.versions[version] : json;
 }
 
-const api: Template = {
+export = {
     name: 'npm',
     repositories: [
         'registry.npmjs.org'
@@ -50,6 +50,4 @@ const api: Template = {
             converter: (json: any) => Object.keys(json.versions)
         },
     }
-};
-
-export = api;
+} as Template;

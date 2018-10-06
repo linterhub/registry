@@ -1,7 +1,7 @@
 import { Dependency } from '../model/data';
 import { Template, Arguments, Source } from '../model/registry';
 
-const api: Template = {
+export = {
     name: 'gem',
     repositories: [
         'rubygems.org'
@@ -44,6 +44,4 @@ const api: Template = {
             converter: (json: any) => json
         },
     }
-};
-
-export = api;
+} as Template;
