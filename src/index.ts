@@ -27,7 +27,9 @@ export class Registry extends Cacheable {
     async get(method: LRequest, args: Arguments, updateCache: boolean = false) : Promise<Data> {
         const req = this.api.requests[method];
         const params = { ...args, ...this.context };
-        const url = mustache.render(req.urlPrototype || this.api.urlPrototype, params);
+        const url = mustache.render(req.urlPrototype || this.api.urlPrototype, {...params, ...{
+            lower: () => (text: string, render: (x: string) => string) => render(text).toLocaleLowerCase()
+        }});
         const result = {} as Data;
         let response = {} as CachedObject;
 

@@ -12,7 +12,7 @@ export = {
     repositories: [
         'api.nuget.org/v3'
     ],
-    urlPrototype: 'https://{repository}/registration3/{name}/index.json',
+    urlPrototype: 'https://{{{repository}}}/registration3/{{#lower}}{{{name}}}{{/lower}}/index.json',
     requests: {
         "meta": {
             converter: (json: any, args: Arguments & Source) => {
