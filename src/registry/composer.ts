@@ -1,5 +1,5 @@
 import { Dependency } from '../model/data';
-import { Template, Arguments, Source } from '../model/registry';
+import { Template, Arguments, Source, RegistryType } from '../model/registry';
 
 function getVersionData(json: any, version?: string): any {
     return version ?
@@ -12,13 +12,13 @@ function getVersionData(json: any, version?: string): any {
 }
 
 export = {
-    name: 'composer',
+    name: RegistryType.composer,
     repositories: [
         'packagist.org'
     ],
     urlPrototype: 'https://{{{repository}}}/packages/{{{name}}}.json',
     requests: {
-        "meta": {
+        meta: {
             converter: (json: string, args: Arguments & Source) => {
                 const data = getVersionData(json, args.version);
                 return {
@@ -30,7 +30,7 @@ export = {
                 };
             }
         },
-        "deps": {
+        deps: {
             converter: (json: any, args: Arguments & Source) => {
                 const data = getVersionData(json, args.version);
 
@@ -48,11 +48,11 @@ export = {
                 return dependencies;
             }
         },
-        "versions": {
+        versions: {
             converter: (json: any) => {
                 return Object.keys(json.package.versions)
                     .filter(x => x.includes('.'));
             }
-        },
+        }
     }
 } as Template;

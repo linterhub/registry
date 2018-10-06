@@ -1,15 +1,15 @@
 import { Dependency } from '../model/data';
-import { Template, Arguments, Source } from '../model/registry';
+import { Template, Arguments, Source, RegistryType } from '../model/registry';
 
 export = {
-    name: 'gem',
+    name: RegistryType.gem,
     repositories: [
         'rubygems.org'
     ],
     urlPrototype: 
         'https://{{{repository}}}/api/{{#version}}v2/rubygems/{{{name}}}/versions/{{{version}}}{{/version}}{{^version}}v1/gems/{{{name}}}{{/version}}.json',
     requests: {
-        "meta": {
+        meta: {
             converter: (json: any, args: Arguments & Source) => {
                 return {
                     name: json.name,
@@ -20,7 +20,7 @@ export = {
                 };
             }
         },
-        "deps": {
+        deps: {
             converter: (json: any, args: Arguments & Source) => {
                 const dependencies: Dependency[] = [];
 
@@ -40,9 +40,9 @@ export = {
                 return dependencies;
             }
         },
-        "versions": {
+        versions: {
             urlPrototype: 'https://{{{repository}}}/api/v1/versions/{{{name}}}.json',
             converter: (json: any[]) => json.map(x => x.number)
-        },
+        }
     }
 } as Template;

@@ -1,14 +1,14 @@
 import { Dependency } from '../model/data';
-import { Template, Arguments, Source } from '../model/registry';
+import { Template, Arguments, Source, RegistryType } from '../model/registry';
 
 export = {
-    name: 'pip',
+    name: RegistryType.pip,
     repositories: [
         'pypi.org/pypi'
     ],
     urlPrototype: 'https://{{{repository}}}/{{{name}}}{{#version}}/{{{version}}}{{/version}}/json',
     requests: {
-        "meta": {
+        meta: {
             converter: (json: any, args: Arguments & Source) => {
                 return {
                     name: json.info.name,
@@ -19,7 +19,7 @@ export = {
                 };
             }
         },
-        "deps": {
+        deps: {
             converter: (json: any, args: Arguments & Source) => {
                 const dependencies: Dependency[] = [];
                 if (json.info.requires_dist) {
@@ -51,13 +51,13 @@ export = {
                 return dependencies;
             }
         },
-        "versions": {
+        versions: {
             urlPrototype: 'https://{{{repository}}}/{{{name}}}/json',
             converter: (json: any) => {
                 return Object
                     .keys(json.releases)
                     .filter(x => x && json.releases[x].length > 0);
             }
-        },
+        }
     }
 } as Template;

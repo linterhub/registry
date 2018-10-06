@@ -2,13 +2,11 @@ import data from './data';
 import { Linter } from './interface/library';
 import { expect, assert } from 'chai';
 import mocha from 'mocha';
-import { Registry, Request } from './../src/index';
+import { Registry, Request, RegistryCollection } from './../src/index';
 
 const test = (linter : Linter) => {
     describe(linter.registry, () => {
-        const registry = new Registry({
-            registry: linter.registry
-        });
+        const registry = new Registry(RegistryCollection[linter.registry]);
         it(`should return versions array of ${linter.name}`, (done) => {
             registry.get(Request.Versions, {
                 name: linter.name

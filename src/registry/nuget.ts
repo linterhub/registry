@@ -1,6 +1,5 @@
-
 import { Dependency } from '../model/data';
-import { Template, Arguments, Source } from '../model/registry';
+import { Template, Arguments, Source, RegistryType } from '../model/registry';
 
 function getVersionData(json: any, version?: string) : any {
     const actualVersion = version ? version : json.items[0].upper;
@@ -8,13 +7,13 @@ function getVersionData(json: any, version?: string) : any {
 }
 
 export = {
-    name: 'nuget',
+    name: RegistryType.nuget,
     repositories: [
         'api.nuget.org/v3'
     ],
     urlPrototype: 'https://{{{repository}}}/registration3/{{#lower}}{{{name}}}{{/lower}}/index.json',
     requests: {
-        "meta": {
+        meta: {
             converter: (json: any, args: Arguments & Source) => {
                 const data = getVersionData(json, args.version);
         
@@ -27,7 +26,7 @@ export = {
                 };
             }
         },
-        "deps": {
+        deps: {
             converter: (json: any, args: Arguments & Source) => {
                 const data = getVersionData(json, args.version);
                 const dependencies: Dependency[] = [];
@@ -47,8 +46,8 @@ export = {
                 return dependencies;
             }
         },
-        "versions": {
+        versions: {
             converter: (json: any) => json.items[0].items.map((item : any) => item.catalogEntry.version)
-        },
+        }
     }
 } as Template;
