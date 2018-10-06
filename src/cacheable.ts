@@ -5,32 +5,24 @@ export type CachedObject = {
 
 export abstract class Cacheable {
 
-    protected cached: { [key: string]: CachedObject };
+    private cached: { [key: string]: CachedObject } = {};
 
-    constructor() {
-        this.cached = {};
+    protected isSet(key: string) : boolean {
+        return this.cached[key] ? true : false;
     }
 
-    protected requestCache(key: string, value?: any) : CachedObject | undefined
+    protected cache(key: string, value?: any) : CachedObject
     {
-        if (!value) {
-            return this.cached[key];
-        }
-        this.cached[key] = {
-            timestamp: Date.now(),
-            value
-        };
-    }
-
-    protected async cache(promise: Promise<any>, key: string) : Promise<CachedObject>
-    {
-        if(!this.requestCache(key)) {
-            this.requestCache(key, promise);
+        if(!this.cached[key] && value) {
+            this.cached[key] = {
+                timestamp: Date.now(),
+                value
+            };
         }
         return this.cached[key];
     }
 
-    protected emptyCacheValue(key?: string){
+    protected cleanCache(key?: string){
         if (key) {
             delete this.cached[key];
         } else {

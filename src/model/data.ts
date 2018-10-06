@@ -17,7 +17,8 @@ export type Dependency = {
 };
 
 export type Data = {
-    data: any;
+    data?: any;
+    error?: string;
     request: Arguments & Source & { 
         type: Request,
         timestamp: number

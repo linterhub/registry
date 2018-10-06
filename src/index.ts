@@ -24,30 +24,37 @@ export class Registry extends Cacheable {
         }
     }
 
-    protected async request(urlPrototype: string, args: Source & Arguments): Promise<CachedObject> {
-        const url = format(urlPrototype, args);
-        const result = this.requestCache(url);
-        return result || await this.cache(await Request(url), url);
-    }
-
-    emptyCache(key?: string) : Registry {
-        this.emptyCacheValue(key);
-        return this;
-    }
-
-    async get(method: LRequest, args: Arguments) : Promise<Data> {
+    async get(method: LRequest, args: Arguments, updateCache: boolean = false) : Promise<Data> {
         const req = this.api.requests[method];
         const params = { ...args, ...this.context };
-        const result = await this.request(
-            req.urlPrototype || this.api.urlPrototype, params);
-        return {
-            data: req.converter(isjson(result.value) ? JSON.parse(result.value) : result.value, params),
-            request: { ...args, ...{
-                registry: this.context.registry,
-                repository: this.context.repository,
-                type: method,
-                timestamp: result.timestamp
-            }}
-        };
+        const url = format(req.urlPrototype || this.api.urlPrototype, params);
+        let result = {} as Data;
+        let response = {} as CachedObject;
+
+        result.request = { ...args, ...{
+            registry: this.context.registry,
+            repository: this.context.repository,
+            type: method,
+            timestamp: 0
+        }};
+
+        if (!this.isSet(url) || updateCache) {
+            this.cleanCache(url);
+            try {
+                response = this.cache(url, await Request(url).promise())
+            } catch (error) {
+                result.error = (<Error>error).message;
+                result.request.timestamp = Date.now();
+                return result;
+            }
+        } else {
+            response = this.cache(url);
+        }
+
+        result.data = req.converter(
+            isjson(response.value) ? JSON.parse(response.value) : response.value, params);
+        result.request.timestamp = response.timestamp;
+
+        return result;
     }
 }

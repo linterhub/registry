@@ -51,3 +51,5 @@ const api: Template = {
         },
     }
 };
+
+export = api;
