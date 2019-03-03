@@ -3,6 +3,19 @@ import { RegistryType } from '../src/model/registry.type';
 
 const data : Linter[] = [
     {
+        name: 'pmd',
+        version: '6.8.0',
+        registry: RegistryType.chocolatey,
+        dependency: {
+            source: {
+                registry: RegistryType.chocolatey,
+                repository: 'chocolatey.org'
+            },
+            package: 'javaruntime', 
+            version: '7.0'
+        },
+    },
+    {
         name: 'eslint',
         version: '5.2.0',
         registry: RegistryType.npm,

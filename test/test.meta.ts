@@ -20,7 +20,7 @@ const test = (linter : Linter) => {
             .catch(done);
         });
 
-        it(`should return meta with last of version for ${linter.name}`, (done) =>{
+        it(`should return meta for last version of ${linter.name}`, (done) =>{
             registry.get(Request.Meta, {
                 name: linter.name
             })
@@ -30,7 +30,7 @@ const test = (linter : Linter) => {
             }).catch(done);
         });
 
-        it(`should test rejections for inccorect name: ${linter.name}_test`, (done) => {
+        it(`should test rejections with inccorect name: ${linter.name}_test`, (done) => {
             registry.get(Request.Meta, {
                 name: `${linter.name}_test`
             })
