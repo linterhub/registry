@@ -43,10 +43,12 @@ at [GitHub Releases][repo-release-url].
 Get meta-information of `packageName` from `npm` and output it to console:
 
 ```javascript
-const registry = require('@linterhub/registry');
-const manager = registry.getManager('npm');
-manager.getMeta('packageName').then((data) => {
-    console.log(data);
+const registry = new Registry(RegistryCollection.npm);
+registry.get(Request.Meta, {
+    name: "packageName"
+})
+.then((result) => {
+    console.log(result.data);
 });
 ```
 
