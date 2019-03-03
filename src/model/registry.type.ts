@@ -5,5 +5,6 @@ export enum RegistryType {
     composer = 'composer',
     gem = 'gem',
     nuget = 'nuget',
-    pip = 'pip'
+    pip = 'pip',
+    chocolatey = 'chocolatey'
 }

@@ -54,6 +54,9 @@ export class Registry extends Cacheable {
 
         result.data = req.converter(
             isjson(response.value) ? JSON.parse(response.value) : response.value, params);
+        if (!result.data) {
+            result.error = "Wrong params";
+        }
         result.request.timestamp = response.timestamp;
 
         return result;

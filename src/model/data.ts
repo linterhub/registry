@@ -6,6 +6,7 @@ export type Meta = {
     description?: string;
     url?: string;
     license?: string;
+    licenseUrl?: string;
     version: string;
 };
 
