@@ -13,6 +13,10 @@ jobs:
         - npm run lint 
         - npm run test
         - npm run build
+        - npm install nsp -g
+        - cd ./dist
+        - nsp check
+        - cd ..
     - stage: release
       node_js: "8"
       if: branch = master AND type = push
