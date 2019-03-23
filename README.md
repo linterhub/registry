@@ -38,6 +38,7 @@ at [GitHub Releases][repo-release-url].
 
 ## Usage
 
+
 ### JavaScript
 
 Get meta-information of `packageName` from `npm` and output it to console:
